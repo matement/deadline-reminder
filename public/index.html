@@ -31,10 +31,17 @@
     <p id="notif-status" class="notif-status" hidden></p>
 
     <form id="add-form" class="add-form">
-      <input id="title-input" name="title" type="text" placeholder="Task" autocomplete="off" required />
+      <label class="field-label" for="title-input">Task</label>
+      <input id="title-input" name="title" type="text" placeholder="e.g. Submit thesis draft" autocomplete="off" required />
+
+      <label class="field-label" for="deadline-input">Deadline</label>
       <input id="deadline-input" name="deadline" type="datetime-local" required />
-      <button type="button" id="toggle-notes-btn" class="btn btn-icon" title="Add notes" aria-label="Add notes">+</button>
-      <button type="submit" class="btn btn-primary">Add</button>
+
+      <div class="add-form-actions">
+        <button type="button" id="toggle-notes-btn" class="btn btn-ghost" title="Add notes" aria-label="Add notes">+ Notes</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+
       <textarea id="notes-input" name="notes" placeholder="Notes (optional)" rows="2" hidden></textarea>
     </form>
 
