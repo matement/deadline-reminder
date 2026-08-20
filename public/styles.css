@@ -1,0 +1,284 @@
+:root {
+  --bg: #0a0c0f;
+  --surface: #13161b;
+  --surface-hover: #191d24;
+  --border: #242932;
+  --text: #e5e8ec;
+  --text-muted: #8993a3;
+  --text-faint: #565d6b;
+
+  /* Urgency scale — the same colors are used everywhere a deadline shows up:
+     the left bar on a task row, its countdown text, and its reminder ticks. */
+  --calm: #6f95b8;
+  --watch: #c9a227;
+  --urgent: #e2542f;
+  --overdue: #ef4444;
+
+  --radius: 7px;
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+}
+
+/* --- Topbar --- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0 20px;
+}
+
+.topbar h1 {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* --- Buttons --- */
+
+.btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn:hover { background: var(--surface-hover); }
+.btn:focus-visible { outline: 2px solid var(--calm); outline-offset: 2px; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.btn-ghost:hover { color: var(--text); background: var(--surface); }
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  font-weight: 600;
+}
+.btn-primary:hover { background: #cfd3d9; }
+
+.btn-icon {
+  padding: 8px 10px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.notif-status {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: -12px 0 16px;
+}
+
+/* --- Add form --- */
+
+.add-form {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.add-form input[type="text"],
+.add-form input[type="datetime-local"],
+.add-form textarea {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 10px;
+}
+
+.add-form input[type="text"] { min-width: 0; }
+.add-form input[type="datetime-local"] { color-scheme: dark; font-family: var(--font-mono); font-size: 13px; }
+
+.add-form input:focus,
+.add-form textarea:focus {
+  outline: none;
+  border-color: var(--calm);
+}
+
+.add-form textarea {
+  grid-column: 1 / -1;
+  resize: vertical;
+  font-family: var(--font-ui);
+}
+
+@media (max-width: 460px) {
+  .add-form {
+    grid-template-columns: 1fr auto;
+  }
+  .add-form input[type="datetime-local"] { grid-column: 1 / -1; }
+}
+
+/* --- Task list --- */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.task-list:empty::after {
+  content: "No tasks yet — add your first deadline above.";
+  display: block;
+  padding: 32px 4px;
+  color: var(--text-faint);
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task {
+  display: flex;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+  --urgency: var(--calm);
+}
+
+.task-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--urgency);
+  flex-shrink: 0;
+}
+
+.task-main { flex: 1; min-width: 0; }
+
+.task-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.task-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.task.completed .task-title {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.task-countdown {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--urgency);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.task-notes {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.task-reminders {
+  margin-top: 6px;
+}
+
+.task-reminders summary {
+  font-size: 12px;
+  color: var(--text-faint);
+  cursor: pointer;
+  user-select: none;
+}
+
+.reminder-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.reminder-list li { display: flex; gap: 8px; align-items: center; }
+
+.reminder-list .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex-shrink: 0;
+}
+.reminder-list li.sent .dot { background: var(--calm); }
+
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.task-actions .btn { padding: 6px 9px; font-size: 12px; }
+.task-complete:hover { border-color: var(--calm); color: var(--calm); }
+.task-delete:hover { border-color: var(--overdue); color: var(--overdue); }
+
+/* --- Completed section --- */
+
+.completed-section { margin-top: 8px; }
+
+.completed-toggle {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 12px 4px;
+  cursor: pointer;
+}
+.completed-toggle:hover { color: var(--text-muted); }
+
+.completed-section .task { opacity: 0.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

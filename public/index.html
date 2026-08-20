@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Deadlines</title>
+
+  <meta name="theme-color" content="#0a0c0f" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- iOS ignores parts of manifest.json for home-screen install; these tags
+       are the older Apple-specific equivalents and are still the reliable
+       path for icon + standalone behavior on iOS. -->
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Deadlines" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Deadlines</h1>
+      <div class="topbar-actions">
+        <button id="test-push-btn" class="btn btn-ghost" type="button" hidden>Send test</button>
+        <button id="notif-btn" class="btn btn-ghost" type="button">Enable notifications</button>
+      </div>
+    </header>
+
+    <p id="notif-status" class="notif-status" hidden></p>
+
+    <form id="add-form" class="add-form">
+      <input id="title-input" name="title" type="text" placeholder="Task" autocomplete="off" required />
+      <input id="deadline-input" name="deadline" type="datetime-local" required />
+      <button type="button" id="toggle-notes-btn" class="btn btn-icon" title="Add notes" aria-label="Add notes">+</button>
+      <button type="submit" class="btn btn-primary">Add</button>
+      <textarea id="notes-input" name="notes" placeholder="Notes (optional)" rows="2" hidden></textarea>
+    </form>
+
+    <section id="task-list" class="task-list" aria-live="polite">
+      <!-- populated by app.js -->
+    </section>
+
+    <section id="completed-section" class="completed-section" hidden>
+      <button id="completed-toggle" class="completed-toggle" type="button">
+        <span id="completed-count">0</span> completed
+      </button>
+      <div id="completed-list" class="task-list" hidden></div>
+    </section>
+  </div>
+
+  <template id="task-row-template">
+    <article class="task">
+      <span class="task-bar"></span>
+      <div class="task-main">
+        <div class="task-top">
+          <h2 class="task-title"></h2>
+          <span class="task-countdown"></span>
+        </div>
+        <p class="task-notes" hidden></p>
+        <details class="task-reminders">
+          <summary>Reminders</summary>
+          <ul class="reminder-list"></ul>
+        </details>
+      </div>
+      <div class="task-actions">
+        <button class="btn btn-icon task-complete" type="button" title="Mark complete" aria-label="Mark complete">✓</button>
+        <button class="btn btn-icon task-delete" type="button" title="Delete" aria-label="Delete">✕</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>
