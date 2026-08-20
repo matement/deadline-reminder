@@ -7,7 +7,7 @@
 // closed, because the browser (not your app) owns the service worker's
 // lifecycle. Nothing in index.html/app.js runs at that point — only this file.
 
-const CACHE_NAME = 'deadlines-shell-v2';
+const CACHE_NAME = 'deadlines-shell-v3';
 const APP_SHELL = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.json', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
