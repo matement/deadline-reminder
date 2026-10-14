@@ -99,8 +99,7 @@ function render() {
   const active = tasks.filter((t) => !t.completed);
   const completed = tasks.filter((t) => t.completed);
 
-  els.taskList.replaceChildren(...active.map(renderTaskRow));
-
+  els.taskList.replaceChildren(...active.map((t) => renderTaskRow(t)));
   els.completedSection.hidden = completed.length === 0;
   els.completedCount.textContent = completed.length;
   els.completedList.replaceChildren(...completed.map((t) => renderTaskRow(t, true)));
