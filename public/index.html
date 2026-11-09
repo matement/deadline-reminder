@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -17,6 +17,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Deadlines" />
 
+  <link rel="stylesheet" href="/vendor/flatpickr/flatpickr.min.css" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -36,7 +37,7 @@
       <input id="title-input" name="title" type="text" placeholder="e.g. Submit thesis draft" autocomplete="off" required />
 
       <label class="field-label" for="deadline-input">Deadline</label>
-      <input id="deadline-input" name="deadline" type="datetime-local" required />
+      <input id="deadline-input" class="deadline-input" name="deadline" type="text" placeholder="Pick date &amp; time" autocomplete="off" required />
 
       <div class="add-form-actions">
         <button type="button" id="toggle-notes-btn" class="btn btn-ghost" title="Add notes" aria-label="Add notes">+ Notes</button>
@@ -79,6 +80,7 @@
     </article>
   </template>
 
+  <script src="/vendor/flatpickr/flatpickr.min.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>

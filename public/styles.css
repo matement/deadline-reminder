@@ -124,7 +124,6 @@ body {
 .field-label:first-child { margin-top: 0; }
 
 .add-form input[type="text"],
-.add-form input[type="datetime-local"],
 .add-form textarea {
   width: 100%;
   font-family: inherit;
@@ -136,14 +135,19 @@ body {
   padding: 9px 10px;
 }
 
-.add-form input[type="datetime-local"] {
-  color-scheme: dark;
+.add-form input.deadline-input {
   font-family: var(--font-mono);
   font-size: 13px;
   text-align: center;
-  width: auto;
+  width: 19ch;
   align-self: center;
   padding: 9px 18px;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+.add-form input.deadline-input::placeholder {
+  color: var(--text-faint);
 }
 
 .add-form input:focus,
@@ -294,6 +298,134 @@ body {
 .completed-toggle:hover { color: var(--text-muted); }
 
 .completed-section .task { opacity: 0.6; }
+
+/* --- Date picker (flatpickr) --- */
+
+.flatpickr-calendar {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px var(--border), 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-ui);
+  color: var(--text);
+}
+
+.flatpickr-calendar.arrowTop:before { border-bottom-color: var(--border); }
+.flatpickr-calendar.arrowTop:after { border-bottom-color: var(--surface); }
+.flatpickr-calendar.arrowBottom:before { border-top-color: var(--border); }
+.flatpickr-calendar.arrowBottom:after { border-top-color: var(--surface); }
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  background: transparent;
+  color: var(--text);
+  fill: var(--text);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: var(--calm);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: transparent;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover,
+.flatpickr-current-month span.cur-month:hover,
+.numInputWrapper:hover {
+  background: var(--surface-hover);
+}
+
+.numInputWrapper span { border-color: var(--border); }
+.numInputWrapper span:hover { background: var(--surface-hover); }
+.numInputWrapper span.arrowUp:after,
+.flatpickr-current-month .numInputWrapper span.arrowUp:after,
+.flatpickr-time .numInputWrapper span.arrowUp:after {
+  border-bottom-color: var(--text-muted);
+}
+.numInputWrapper span.arrowDown:after,
+.flatpickr-current-month .numInputWrapper span.arrowDown:after,
+.flatpickr-time .numInputWrapper span.arrowDown:after {
+  border-top-color: var(--text-muted);
+}
+
+span.flatpickr-weekday {
+  background: transparent;
+  color: var(--text-faint);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.flatpickr-day {
+  color: var(--text);
+  border-radius: var(--radius);
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus,
+.flatpickr-day.prevMonthDay:hover,
+.flatpickr-day.nextMonthDay:hover,
+.flatpickr-day.prevMonthDay:focus,
+.flatpickr-day.nextMonthDay:focus {
+  background: var(--surface-hover);
+  border-color: var(--border);
+}
+
+.flatpickr-day.today { border-color: var(--text-faint); }
+.flatpickr-day.today:hover,
+.flatpickr-day.today:focus {
+  background: var(--surface-hover);
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.selected:focus,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay {
+  background: var(--calm);
+  border-color: var(--calm);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+  color: var(--text-faint);
+}
+
+.flatpickr-calendar.hasTime .flatpickr-time {
+  border-top: 1px solid var(--border);
+}
+
+.flatpickr-time input,
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time .flatpickr-am-pm:focus {
+  background: var(--surface-hover);
+}
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

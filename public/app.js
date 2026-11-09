@@ -20,6 +20,15 @@ const els = {
   notifStatus: document.getElementById('notif-status'),
 };
 
+const deadlinePicker = flatpickr(els.deadlineInput, {
+  enableTime: true,
+  time_24hr: true,
+  dateFormat: 'Y-m-d\\TH:i',
+  disableMobile: true,
+  position: 'auto center',
+  locale: { firstDayOfWeek: 1 },
+});
+
 // ---------- API key (see server/auth.js) ----------
 // A normal web app would use cookies/sessions here. This one uses a single
 // static key entered once and stored in localStorage, because there's no
@@ -158,6 +167,8 @@ async function deleteTask(task) {
 
 // ---------- Add form ----------
 
+els.addForm.addEventListener('reset', () => deadlinePicker.clear());
+
 els.toggleNotesBtn.addEventListener('click', () => {
   els.notesInput.hidden = !els.notesInput.hidden;
   if (!els.notesInput.hidden) els.notesInput.focus();
@@ -167,7 +178,11 @@ els.addForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const title = els.titleInput.value.trim();
   const deadlineLocal = els.deadlineInput.value; // e.g. "2026-08-24T14:00" — no timezone
-  if (!title || !deadlineLocal) return;
+  if (!title) return;
+  if (!deadlineLocal) {
+    deadlinePicker.open();
+    return;
+  }
 
   // The browser interprets this naive string as *local* time, which is what
   // we want since the person typing it is in that local time. toISOString()

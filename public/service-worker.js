@@ -7,8 +7,17 @@
 // closed, because the browser (not your app) owns the service worker's
 // lifecycle. Nothing in index.html/app.js runs at that point — only this file.
 
-const CACHE_NAME = 'deadlines-shell-v4';
-const APP_SHELL = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.json', '/icons/icon-192.png'];
+const CACHE_NAME = 'deadlines-shell-v5';
+const APP_SHELL = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/vendor/flatpickr/flatpickr.min.css',
+  '/vendor/flatpickr/flatpickr.min.js',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));

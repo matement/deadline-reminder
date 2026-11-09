@@ -20,6 +20,7 @@ const { DateTime } = require('luxon');
 
 const LOCAL_TIMEZONE = 'Europe/Athens'; // change this if you're ever elsewhere
 const DAYS_BEFORE = [5, 3, 1];
+const DAYS_BEFORE_HOUR = 15;
 const DAY_OF_HOURS = [9, 13, 17, 20]; // 24h clock, local time on the deadline's calendar day
 
 /**
@@ -47,7 +48,8 @@ function generateReminderSchedule(deadlineIso, nowIso = new Date().toISOString()
   };
 
   for (const days of DAYS_BEFORE) {
-    consider(`${days}_day${days === 1 ? '' : 's'}_before`, deadline.minus({ days }));
+    const t = deadline.minus({ days }).set({ hour: DAYS_BEFORE_HOUR, minute: 0, second: 0, millisecond: 0 });
+    consider(`${days}_day${days === 1 ? '' : 's'}_before`, t);
   }
 
   const dayStart = deadline.startOf('day');
@@ -78,4 +80,4 @@ function describeReminder(type) {
   return 'Reminder';
 }
 
-module.exports = { generateReminderSchedule, describeReminder, LOCAL_TIMEZONE, DAYS_BEFORE, DAY_OF_HOURS };
+module.exports = { generateReminderSchedule, describeReminder, LOCAL_TIMEZONE, DAYS_BEFORE, DAYS_BEFORE_HOUR, DAY_OF_HOURS };
