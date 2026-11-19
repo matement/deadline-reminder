@@ -7,7 +7,7 @@
 // closed, because the browser (not your app) owns the service worker's
 // lifecycle. Nothing in index.html/app.js runs at that point — only this file.
 
-const CACHE_NAME = 'deadlines-shell-v5';
+const CACHE_NAME = 'deadlines-shell-v6';
 const APP_SHELL = [
   '/',
   '/index.html',

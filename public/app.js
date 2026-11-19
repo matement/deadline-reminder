@@ -95,6 +95,18 @@ function formatReminderLabel(reminder) {
   return when;
 }
 
+function formatDeadlineLabel(deadline) {
+  return new Date(deadline).toLocaleString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+}
+
 // ---------- Rendering ----------
 
 let tasks = [];
@@ -122,6 +134,7 @@ function renderTaskRow(task, isCompleted = false) {
   node.style.setProperty('--urgency', `var(--${isCompleted ? 'calm' : urgency})`);
   node.querySelector('.task-title').textContent = task.title;
   node.querySelector('.task-countdown').textContent = isCompleted ? 'Done' : text;
+  node.querySelector('.task-deadline').textContent = formatDeadlineLabel(task.deadline);
 
   const notesEl = node.querySelector('.task-notes');
   if (task.notes) {
